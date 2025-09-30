@@ -39,7 +39,7 @@ This project and everyone participating in it is governed by our commitment to p
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/task-manager.git
+   git clone https://github.com/Coffee-Ty/TaskManager.git
    cd task-manager
    ```
 

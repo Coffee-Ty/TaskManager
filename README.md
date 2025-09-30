@@ -1,6 +1,6 @@
 # Task Manager Application
 
-[![CI/CD Pipeline](https://github.com/your-username/task-manager/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/your-username/task-manager/actions)
+[![CI/CD Pipeline](https://github.com/Coffee-Ty/TaskManager/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/Coffee-Ty/TaskManager/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Angular](https://img.shields.io/badge/Angular-17+-red.svg)](https://angular.io/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
@@ -43,7 +43,7 @@ task-manager/
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/Coffee-Ty/TaskManager.git
 cd task-manager
 ```
 
@@ -163,9 +163,9 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## Support
 
 - 📖 [Documentation](README.md)
-- 🐛 [Report a Bug](https://github.com/your-username/task-manager/issues/new?template=bug_report.yml)
-- 💡 [Request a Feature](https://github.com/your-username/task-manager/issues/new?template=feature_request.yml)
-- 💬 [Discussions](https://github.com/your-username/task-manager/discussions)
+- 🐛 [Report a Bug](https://github.com/Coffee-Ty/TaskManager/issues/new?template=bug_report.yml)
+- 💡 [Request a Feature](https://github.com/Coffee-Ty/TaskManager/issues/new?template=feature_request.yml)
+- 💬 [Discussions](https://github.com/Coffee-Ty/TaskManager/discussions)
 
 ## Roadmap
 
