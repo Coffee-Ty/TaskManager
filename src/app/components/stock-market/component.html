@@ -1,0 +1,38 @@
+<div class="stock-market">
+  <div class="stock-header">
+    <h3>Stock Market</h3>
+    <button class="refresh-btn" (click)="refreshStocks()">
+      Refresh
+    </button>
+  </div>
+  
+  <div class="stock-list" *ngIf="stocks.length > 0">
+    <div class="stock-item" *ngFor="let stock of stocks">
+      <div class="stock-symbol">
+        <span class="symbol">{{ stock.symbol }}</span>
+      </div>
+      
+      <div class="stock-price">
+        <span class="price">${{ formatPrice(stock.price) }}</span>
+        <div class="change-info">
+          <span class="change" [class]="getChangeClass(stock.change)">
+            {{ formatChange(stock.change) }}
+          </span>
+          <span class="change-percent" [class]="getChangeClass(stock.changePercent)">
+            {{ formatChangePercent(stock.changePercent) }}
+          </span>
+        </div>
+      </div>
+      
+      <div class="stock-volume">
+        <span class="volume-label">Volume</span>
+        <span class="volume-value">{{ formatVolume(stock.volume) }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="loading-content" *ngIf="stocks.length === 0">
+    <div class="loading-spinner"></div>
+    <p>Loading stock data...</p>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+.weather-sidebar {
+  background: linear-gradient(135deg, rgba(96,165,250,.1), rgba(96,165,250,.05));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.weather-header h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.last-updated {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.weather-main {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.temperature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.temp-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--brand);
+  line-height: 1;
+}
+
+.weather-icon img {
+  width: 60px;
+  height: 60px;
+}
+
+.weather-description {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.weather-details {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255,255,255,.02);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.05);
+}
+
+.detail-label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.detail-value {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.weather-footer {
+  text-align: center;
+}
+
+.refresh-btn {
+  background: linear-gradient(135deg, var(--accent), #2563eb);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.refresh-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(96,165,250,.3);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-content p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 14px;
+}

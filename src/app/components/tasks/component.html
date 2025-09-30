@@ -1,0 +1,39 @@
+<form class="add-form" (ngSubmit)="addTask()" autocomplete="off">
+  <input type="text" [(ngModel)]="newTaskTitle" name="newTaskTitle" placeholder="Add a new task and press Enter" aria-label="New task" required />
+  <button type="submit">Add</button>
+</form>
+
+<div class="controls">
+  <div class="filters" role="tablist" aria-label="Task filters">
+    <button [class.active]="statusFilter==='all'" (click)="setStatusFilter('all')" role="tab" [attr.aria-selected]="statusFilter==='all'">All</button>
+    <button [class.active]="statusFilter==='active'" (click)="setStatusFilter('active')" role="tab" [attr.aria-selected]="statusFilter==='active'">Active</button>
+    <button [class.active]="statusFilter==='completed'" (click)="setStatusFilter('completed')" role="tab" [attr.aria-selected]="statusFilter==='completed'">Completed</button>
+  </div>
+  <input class="search" type="search" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Search tasks..." aria-label="Search tasks" />
+</div>
+
+<ul class="task-list" aria-live="polite">
+  @for (task of filteredTasks(); track task.id) {
+    <li [class.completed]="task.completed" [class.editing]="task.isEditing">
+      <label class="checkbox">
+        <input type="checkbox" [(ngModel)]="task.completed" (ngModelChange)="toggleCompleted(task, $event)" aria-label="Toggle complete" />
+        <span></span>
+      </label>
+
+      <span class="title" (dblclick)="startEditing(task)" [hidden]="task.isEditing" tabindex="0" (keydown.enter)="startEditing(task)">{{ task.title }}</span>
+
+      <input class="edit-input" type="text" [(ngModel)]="task.editTitle" [hidden]="!task.isEditing" (blur)="finishEditing(task)" (keydown)="handleEditKeydown($event, task)" aria-label="Edit task" />
+
+      <button class="delete" (click)="deleteTask(task)" aria-label="Delete task">✕</button>
+    </li>
+  }
+</ul>
+
+<footer class="footer" *ngIf="tasks.length">
+  <div class="left"><strong>{{ remainingCount() }}</strong> remaining</div>
+  <div class="bulk-actions">
+    <button (click)="toggleAll(true)">Mark all complete</button>
+    <button (click)="toggleAll(false)">Mark all active</button>
+    <button (click)="clearCompleted()" [disabled]="!hasCompleted()">Clear completed</button>
+  </div>
+</footer>

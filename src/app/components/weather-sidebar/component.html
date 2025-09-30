@@ -1,0 +1,44 @@
+<div class="weather-sidebar" *ngIf="weather">
+  <div class="weather-header">
+    <h3>Milwaukee Weather</h3>
+    <span class="last-updated">Updated: {{ formatTime(weather.timestamp) }}</span>
+  </div>
+  
+  <div class="weather-main">
+    <div class="temperature">
+      <span class="temp-value">{{ weather.temperature }}°</span>
+      <div class="weather-icon">
+        <img [src]="getWeatherIconUrl(weather.icon)" [alt]="weather.description" />
+      </div>
+    </div>
+    
+    <div class="weather-description">
+      {{ weather.description | titlecase }}
+    </div>
+  </div>
+  
+  <div class="weather-details">
+    <div class="detail-item">
+      <span class="detail-label">Humidity</span>
+      <span class="detail-value">{{ weather.humidity }}%</span>
+    </div>
+    
+    <div class="detail-item">
+      <span class="detail-label">Wind Speed</span>
+      <span class="detail-value">{{ weather.windSpeed }} mph</span>
+    </div>
+  </div>
+  
+  <div class="weather-footer">
+    <button class="refresh-btn" (click)="weatherService.fetchWeather()">
+      Refresh
+    </button>
+  </div>
+</div>
+
+<div class="weather-sidebar loading" *ngIf="!weather">
+  <div class="loading-content">
+    <div class="loading-spinner"></div>
+    <p>Loading weather data...</p>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Task Manager</h1>
+  
+  <div class="tab-navigation">
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === 'tasks'" 
+      (click)="setActiveTab('tasks')">
+      Tasks
+    </button>
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === 'stocks'" 
+      (click)="setActiveTab('stocks')">
+      Stock Market
+    </button>
+  </div>
+
+  <div class="tab-content">
+    <!-- Tasks Tab -->
+    <div class="tab-panel" *ngIf="activeTab === 'tasks'">
+      <app-tasks></app-tasks>
+    </div>
+
+    <!-- Stock Market Tab -->
+    <div class="tab-panel" *ngIf="activeTab === 'stocks'">
+      <app-stock-market></app-stock-market>
+    </div>
+  </div>
+</div>
