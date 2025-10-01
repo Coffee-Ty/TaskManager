@@ -31,10 +31,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": false,
-            "ssr": false
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -55,9 +52,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": false,
-              "prerender": false,
-              "ssr": false
+              "sourceMap": false
             }
           },
           "defaultConfiguration": "production"

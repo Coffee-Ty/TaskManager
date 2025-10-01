@@ -112,8 +112,8 @@ public
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-# Angular CLI cache
-.angular/cache
+# Angular CLI 
+.angular/
 
 # Storybook build outputs
 storybook-static
