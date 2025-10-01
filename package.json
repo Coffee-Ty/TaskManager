@@ -1,0 +1,29 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "description": "Task Manager Application with Angular frontend and NestJS backend",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd client && npm install && cd ../api && npm install",
+    "dev:client": "cd client && npm start",
+    "dev:api": "cd api && npm run start:dev",
+    "dev:all": "concurrently \"npm run dev:client\" \"npm run dev:api\"",
+    "build:client": "cd client && npm run build",
+    "build:api": "cd api && npm run build",
+    "build:all": "npm run build:api && npm run build:client",
+    "start:api": "cd api && npm run start:prod",
+    "test:client": "cd client && npm test",
+    "test:api": "cd api && npm test",
+    "test:all": "npm run test:api && npm run test:client",
+    "clean": "cd client && rm -rf dist && cd ../api && rm -rf dist",
+    "serve:web": "cd web && node serve.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "workspaces": [
+    "client",
+    "api",
+    "web"
+  ]
+}

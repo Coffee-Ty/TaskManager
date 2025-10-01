@@ -8,8 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false --code-coverage",
     "serve:ssr:task-manager": "node dist/task-manager/server/server.mjs",
-    "dev:server": "cd server && npm run dev",
-    "start:server": "cd server && npm start",
+    "dev:server": "cd ../api && npm run start:dev",
+    "start:server": "cd ../api && npm run start:prod",
     "dev:all": "concurrently \"npm start\" \"npm run dev:server\""
   },
   "private": true,

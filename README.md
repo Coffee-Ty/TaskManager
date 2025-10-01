@@ -5,7 +5,7 @@
 [![Angular](https://img.shields.io/badge/Angular-17+-red.svg)](https://angular.io/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 
-A modern Angular 17+ application with Express.js backend for managing tasks, displaying stock market data, and weather information.
+A modern Angular 17+ application with NestJS backend for managing tasks, displaying stock market data, and weather information.
 
 ## Features
 
@@ -13,22 +13,28 @@ A modern Angular 17+ application with Express.js backend for managing tasks, dis
 - **Stock Market Dashboard**: Real-time stock data for major companies (AAPL, GOOGL, MSFT, TSLA, AMZN)
 - **Weather Information**: Current weather data for Milwaukee, WI
 - **Server-Side Rendering (SSR)**: Built with Angular Universal for better SEO and performance
-- **API Middleware**: Express.js server for handling external API calls with caching
+- **API Backend**: NestJS server for handling external API calls with caching
 
 ## Project Structure
 
 ```
 task-manager/
-├── src/                    # Angular application source
-│   ├── app/
-│   │   ├── components/     # Angular components
-│   │   └── services/      # Angular services
-│   └── assets/            # Static assets
-├── server/                # Express.js API server
-│   ├── server.js         # Main server file
-│   ├── package.json      # Server dependencies
-│   └── env.example       # Environment variables template
-└── dist/                  # Build output (excluded from git)
+├── client/                 # Angular application
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── components/ # Angular components
+│   │   │   └── services/   # Angular services
+│   │   └── assets/        # Static assets
+│   └── dist/              # Angular build output
+├── api/                   # NestJS API server
+│   ├── src/
+│   │   ├── stocks/        # Stock module
+│   │   ├── weather/       # Weather module
+│   │   ├── health/        # Health module
+│   │   └── common/        # Shared interfaces and DTOs
+│   └── dist/              # NestJS build output
+├── web/                   # Static file server
+└── package.json           # Root package.json with workspace scripts
 ```
 
 ## Prerequisites
@@ -49,21 +55,21 @@ cd task-manager
 
 ### 2. Install Dependencies
 ```bash
-# Install Angular dependencies
-npm install
+# Install all dependencies (uses workspaces)
+npm run install:all
 
-# Install server dependencies
-cd server
-npm install
-cd ..
+# Or install individually:
+# npm install                    # Root dependencies
+# cd client && npm install      # Angular dependencies
+# cd ../api && npm install      # NestJS dependencies
 ```
 
 ### 3. Environment Configuration
 ```bash
 # Copy environment template
-cp server/env.example server/.env
+cp api/env.example api/.env
 
-# Edit server/.env and add your API keys:
+# Edit api/.env and add your API keys:
 # ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key_here
 # OPENWEATHER_API_KEY=your_openweather_api_key_here
 # PORT=3001
@@ -73,27 +79,29 @@ cp server/env.example server/.env
 
 **Development Mode:**
 ```bash
-# Terminal 1: Start the API server
-cd server
-npm run dev
+# Start both client and API server concurrently
+npm run dev:all
+
+# Or start individually:
+# Terminal 1: Start the NestJS API server
+npm run dev:api
 
 # Terminal 2: Start the Angular application
-npm start
+npm run dev:client
 ```
 
 **Production Mode:**
 ```bash
-# Build the Angular application
-npm run build
+# Build everything
+npm run build:all
 
-# Start the API server
-cd server
-npm start
+# Start the NestJS API server
+npm run start:api
 ```
 
 ## API Endpoints
 
-The Express server provides the following endpoints:
+The NestJS server provides the following endpoints:
 
 ### Stock Market
 - `GET /api/stocks` - Get all stock data
@@ -124,23 +132,23 @@ The Express server provides the following endpoints:
 - `npm run test` - Run unit tests
 - `npm run serve:ssr:task-manager` - Serve SSR build
 
-**Express Server:**
-- `npm start` - Start production server
-- `npm run dev` - Start development server with auto-restart
+**NestJS API Server:**
+- `npm run start:prod` - Start production server
+- `npm run start:dev` - Start development server with auto-restart
 
 ### Architecture
 
 - **Frontend**: Angular 17+ with standalone components
-- **Backend**: Express.js with middleware for API management
+- **Backend**: NestJS with modular architecture for API management
 - **SSR**: Angular Universal for server-side rendering
 - **Caching**: Intelligent caching to reduce API calls
 - **Security**: API keys stored in environment variables
 
 ## Deployment
 
-1. Build the Angular application: `npm run build`
+1. Build the application: `npm run build:all`
 2. Set up environment variables in production
-3. Start the Express server: `cd server && npm start`
+3. Start the NestJS server: `npm run start:api`
 4. Configure reverse proxy (nginx/Apache) if needed
 
 ## Contributing
@@ -188,6 +196,6 @@ MIT License - see [LICENSE](LICENSE) file for details
 ## Acknowledgments
 
 - [Angular](https://angular.io/) - The web framework
-- [Express.js](https://expressjs.com/) - The web server
+- [NestJS](https://nestjs.com/) - The web framework
 - [Alpha Vantage](https://www.alphavantage.co/) - Stock market data API
 - [OpenWeatherMap](https://openweathermap.org/) - Weather data API
