@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-weather-sidebar',
   imports: [CommonModule],
-  templateUrl: './component.html',
-  styleUrls: ['./component.css']
+  templateUrl: './weather-sidebar.html',
+  styleUrls: ['./weather-sidebar.css']
 })
 export class WeatherSidebarComponent implements OnInit, OnDestroy {
   weather: WeatherData | null = null;

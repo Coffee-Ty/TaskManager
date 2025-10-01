@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WeatherSidebarComponent } from './components/weather-sidebar/component';
-import { DashboardComponent } from './components/dashboard/component';
+import { WeatherSidebarComponent } from './components/weather-sidebar/weather-sidebar';
+import { DashboardComponent } from './components/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',

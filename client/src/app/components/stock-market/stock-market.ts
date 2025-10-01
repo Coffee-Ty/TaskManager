@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-stock-market',
   imports: [CommonModule],
-  templateUrl: './component.html',
-  styleUrls: ['./component.css']
+  templateUrl: './stock-market.html',
+  styleUrls: ['./stock-market.css']
 })
 export class StockMarketComponent implements OnInit, OnDestroy {
   stocks: StockData[] = [];

@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-tasks',
   imports: [CommonModule, FormsModule],
-  templateUrl: './component.html',
-  styleUrl: './component.css'
+  templateUrl: './tasks.html',
+  styleUrl: './tasks.css'
 })
 export class TasksComponent {
   private readonly storageKey = 'taskManager.tasks.v1';
