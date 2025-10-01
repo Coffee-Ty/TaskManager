@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-weather-sidebar',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './component.html',
   styleUrls: ['./component.css']

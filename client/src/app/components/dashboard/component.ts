@@ -5,7 +5,6 @@ import { StockMarketComponent } from '../stock-market/component';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
   imports: [CommonModule, TasksComponent, StockMarketComponent],
   templateUrl: './component.html',
   styleUrl: './component.css'

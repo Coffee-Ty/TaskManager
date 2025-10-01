@@ -5,7 +5,6 @@ import { DashboardComponent } from './components/dashboard/component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [CommonModule, WeatherSidebarComponent, DashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

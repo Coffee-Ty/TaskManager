@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stock-market',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './component.html',
   styleUrls: ['./component.css']
