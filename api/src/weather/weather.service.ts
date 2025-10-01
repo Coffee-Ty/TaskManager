@@ -48,6 +48,10 @@ export class WeatherService {
       const baseUrl = this.configService.get<string>('api.openWeather.baseUrl');
       const coordinates = this.configService.get<{ lat: number; lon: number }>('coordinates.milwaukee');
 
+      this.logger.debug(`API Key loaded: ${apiKey ? 'Yes' : 'No'}`);
+      this.logger.debug(`API Key length: ${apiKey ? apiKey.length : 0}`);
+      this.logger.debug(`Base URL: ${baseUrl}`);
+
       if (!apiKey) {
         throw new Error('OpenWeather API key not configured');
       }
