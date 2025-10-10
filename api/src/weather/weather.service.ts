@@ -39,57 +39,37 @@ export class WeatherService {
       this.logger.log('Weather data updated successfully');
     } catch (error) {
       this.logger.error('Error updating weather data:', error.message);
+      throw error;
     }
   }
 
   private async fetchWeatherData(): Promise<WeatherData> {
-    try {
-      const apiKey = this.configService.get<string>('api.openWeather.apiKey');
-      const baseUrl = this.configService.get<string>('api.openWeather.baseUrl');
-      const coordinates = this.configService.get<{ lat: number; lon: number }>('coordinates.milwaukee');
+    const apiKey = this.configService.get<string>('api.openWeather.apiKey');
+    const baseUrl = this.configService.get<string>('api.openWeather.baseUrl');
+    const coordinates = this.configService.get<{ lat: number; lon: number }>('coordinates.milwaukee');
 
-      this.logger.debug(`API Key loaded: ${apiKey ? 'Yes' : 'No'}`);
-      this.logger.debug(`API Key length: ${apiKey ? apiKey.length : 0}`);
-      this.logger.debug(`Base URL: ${baseUrl}`);
-
-      if (!apiKey) {
-        throw new Error('OpenWeather API key not configured');
-      }
-
-      const response = await firstValueFrom(
-        this.httpService.get<OpenWeatherResponse>(baseUrl, {
-          params: {
-            lat: coordinates.lat,
-            lon: coordinates.lon,
-            appid: apiKey,
-            units: 'imperial',
-          },
-        }),
-      );
-
-      return {
-        temperature: Math.round(response.data.main.temp),
-        description: response.data.weather[0].description,
-        humidity: response.data.main.humidity,
-        windSpeed: Math.round(response.data.wind.speed),
-        city: response.data.name,
-        icon: response.data.weather[0].icon,
-        timestamp: Date.now(),
-      };
-    } catch (error) {
-      this.logger.error('Error fetching weather data:', error.message);
-      return this.getFallbackWeatherData();
+    if (!apiKey) {
+      throw new Error('OpenWeather API key not configured');
     }
-  }
 
-  private getFallbackWeatherData(): WeatherData {
+    const response = await firstValueFrom(
+      this.httpService.get<OpenWeatherResponse>(baseUrl, {
+        params: {
+          lat: coordinates.lat,
+          lon: coordinates.lon,
+          appid: apiKey,
+          units: 'imperial',
+        },
+      }),
+    );
+
     return {
-      temperature: 45,
-      description: 'Partly cloudy',
-      humidity: 65,
-      windSpeed: 8,
-      city: 'Milwaukee',
-      icon: '02d',
+      temperature: Math.round(response.data.main.temp),
+      description: response.data.weather[0].description,
+      humidity: response.data.main.humidity,
+      windSpeed: Math.round(response.data.wind.speed),
+      city: response.data.name,
+      icon: response.data.weather[0].icon,
       timestamp: Date.now(),
     };
   }

@@ -81,23 +81,7 @@ export class StocksService {
       return null;
     } catch (error) {
       this.logger.error(`Error fetching stock data for ${symbol}:`, error.message);
-      return this.getFallbackStockData(symbol);
+      return null;
     }
-  }
-
-  private getFallbackStockData(symbol: string): StockData {
-    const fallbackPrices = [150.25, 2800.50, 350.75, 800.00, 3200.00];
-    const fallbackChanges = [2.15, -15.30, 5.75, -12.50, 8.25];
-    const symbols = this.configService.get<string[]>('stockSymbols');
-    const symbolIndex = symbols.indexOf(symbol);
-    
-    return {
-      symbol: symbol,
-      price: fallbackPrices[symbolIndex] + (Math.random() - 0.5) * 10,
-      change: fallbackChanges[symbolIndex] + (Math.random() - 0.5) * 2,
-      changePercent: (fallbackChanges[symbolIndex] / fallbackPrices[symbolIndex]) * 100,
-      volume: Math.floor(Math.random() * 10000000) + 1000000,
-      timestamp: Date.now(),
-    };
   }
 }

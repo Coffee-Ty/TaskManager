@@ -2,7 +2,7 @@ export default () => ({
   port: parseInt(process.env.PORT, 10) || 3001,
   api: {
     alphaVantage: {
-      apiKey: process.env.ALPHA_VANTAGE_API_KEY || 'demo',
+      apiKey: process.env.ALPHA_VANTAGE_API_KEY,
       baseUrl: 'https://www.alphavantage.co/query',
     },
     openWeather: {
