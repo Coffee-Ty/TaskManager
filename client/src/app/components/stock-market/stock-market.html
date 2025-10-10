@@ -6,38 +6,42 @@
     </button>
   </div>
   
-  <div class="stock-list" *ngIf="stocks.length > 0">
-    <div class="stock-item" *ngFor="let stock of stocks">
-      <div class="stock-symbol">
-        <span class="symbol">{{ stock.symbol }}</span>
-      </div>
-      
-      <div class="stock-price">
-        <span class="price">${{ formatPrice(stock.price) }}</span>
-        <div class="change-info">
-          <span class="change" [class]="getChangeClass(stock.change)">
-            {{ formatChange(stock.change) }}
-          </span>
-          <span class="change-percent" [class]="getChangeClass(stock.changePercent)">
-            {{ formatChangePercent(stock.changePercent) }}
-          </span>
+  @if (stocks.length > 0) {
+    <div class="stock-list">
+      @for (stock of stocks; track stock.symbol) {
+        <div class="stock-item">
+          <div class="stock-symbol">
+            <span class="symbol">{{ stock.symbol }}</span>
+          </div>
+          
+          <div class="stock-price">
+            <span class="price">${{ formatPrice(stock.price) }}</span>
+            <div class="change-info">
+              <span class="change" [class]="getChangeClass(stock.change)">
+                {{ formatChange(stock.change) }}
+              </span>
+              <span class="change-percent" [class]="getChangeClass(stock.changePercent)">
+                {{ formatChangePercent(stock.changePercent) }}
+              </span>
+            </div>
+          </div>
+          
+          <div class="stock-volume">
+            <span class="volume-label">Volume</span>
+            <span class="volume-value">{{ formatVolume(stock.volume) }}</span>
+          </div>
         </div>
-      </div>
-      
-      <div class="stock-volume">
-        <span class="volume-label">Volume</span>
-        <span class="volume-value">{{ formatVolume(stock.volume) }}</span>
-      </div>
+      }
     </div>
-  </div>
-  
-  <div class="error-content" *ngIf="stocks.length === 0 && errorMessage">
-    <p class="error-message">{{ errorMessage }}</p>
-    <button class="retry-btn" (click)="refreshStocks()">Retry</button>
-  </div>
-  
-  <div class="loading-content" *ngIf="stocks.length === 0 && !errorMessage">
-    <div class="loading-spinner"></div>
-    <p>Loading stock data...</p>
-  </div>
+  } @else if (errorMessage) {
+    <div class="error-content">
+      <p class="error-message">{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="refreshStocks()">Retry</button>
+    </div>
+  } @else {
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p>Loading stock data...</p>
+    </div>
+  }
 </div>

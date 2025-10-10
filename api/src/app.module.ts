@@ -5,12 +5,14 @@ import { WeatherModule } from './weather/weather.module';
 import { HealthModule } from './health/health.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { HttpModule } from '@nestjs/axios';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
+      load: [configuration],
     }),
     CacheModule.register({
       ttl: 300, // 5 minutes default TTL
