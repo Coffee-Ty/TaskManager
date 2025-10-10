@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class WeatherSidebarComponent implements OnInit, OnDestroy {
   weather: WeatherData | null = null;
+  errorMessage: string | null = null;
   private subscription: Subscription = new Subscription();
 
   constructor(public weatherService: WeatherService) {}
@@ -19,6 +20,11 @@ export class WeatherSidebarComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.weatherService.weather$.subscribe(weather => {
         this.weather = weather;
+      })
+    );
+    this.subscription.add(
+      this.weatherService.error$.subscribe(error => {
+        this.errorMessage = error;
       })
     );
   }

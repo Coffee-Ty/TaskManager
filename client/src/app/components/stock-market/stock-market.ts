@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class StockMarketComponent implements OnInit, OnDestroy {
   stocks: StockData[] = [];
+  errorMessage: string | null = null;
   private subscription: Subscription = new Subscription();
 
   constructor(private stockService: StockService) {}
@@ -19,6 +20,11 @@ export class StockMarketComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.stockService.stocks$.subscribe(stocks => {
         this.stocks = stocks;
+      })
+    );
+    this.subscription.add(
+      this.stockService.error$.subscribe(error => {
+        this.errorMessage = error;
       })
     );
   }

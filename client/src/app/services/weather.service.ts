@@ -28,6 +28,9 @@ export class WeatherService {
   
   private weatherSubject = new BehaviorSubject<WeatherData | null>(null);
   public weather$ = this.weatherSubject.asObservable();
+  
+  private errorSubject = new BehaviorSubject<string | null>(null);
+  public error$ = this.errorSubject.asObservable();
 
   constructor(private http: HttpClient) {
     this.fetchWeather();
@@ -36,6 +39,7 @@ export class WeatherService {
   }
 
   fetchWeather(): void {
+    this.errorSubject.next(null);
     this.http.get<WeatherApiResponse>(`${this.SERVER_URL}/weather`).pipe(
       map(response => {
         if (response.success && response.data) {
@@ -45,19 +49,18 @@ export class WeatherService {
       }),
       catchError(error => {
         console.error('Error fetching weather from server:', error);
-        // Return fallback data if server fails
-        return [{
-          temperature: 45,
-          description: 'Partly cloudy',
-          humidity: 65,
-          windSpeed: 8,
-          city: 'Milwaukee',
-          icon: '02d',
-          timestamp: Date.now()
-        }];
+        throw error;
       })
-    ).subscribe(weather => {
-      this.weatherSubject.next(weather);
+    ).subscribe({
+      next: (weather) => {
+        this.weatherSubject.next(weather);
+        this.errorSubject.next(null);
+      },
+      error: (error) => {
+        console.error('Failed to load weather data:', error);
+        this.errorSubject.next('Unable to load weather data. Please check your API configuration.');
+        this.weatherSubject.next(null);
+      }
     });
   }
 

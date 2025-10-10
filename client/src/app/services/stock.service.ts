@@ -27,6 +27,9 @@ export class StockService {
   
   private stocksSubject = new BehaviorSubject<StockData[]>([]);
   public stocks$ = this.stocksSubject.asObservable();
+  
+  private errorSubject = new BehaviorSubject<string | null>(null);
+  public error$ = this.errorSubject.asObservable();
 
   constructor(private http: HttpClient) {
     this.fetchStocks();
@@ -35,6 +38,7 @@ export class StockService {
   }
 
   fetchStocks(): void {
+    this.errorSubject.next(null);
     this.http.get<StockApiResponse>(`${this.SERVER_URL}/stocks`).pipe(
       map(response => {
         if (response.success && response.data) {
@@ -44,22 +48,18 @@ export class StockService {
       }),
       catchError(error => {
         console.error('Error fetching stocks from server:', error);
-        // Return fallback data if server fails
-        const fallbackPrices = [150.25, 2800.50, 350.75, 800.00, 3200.00];
-        const fallbackChanges = [2.15, -15.30, 5.75, -12.50, 8.25];
-        const symbols = ['AAPL', 'GOOGL', 'MSFT', 'TSLA', 'AMZN'];
-        
-        return [symbols.map((symbol, index) => ({
-          symbol: symbol,
-          price: fallbackPrices[index] + (Math.random() - 0.5) * 10,
-          change: fallbackChanges[index] + (Math.random() - 0.5) * 2,
-          changePercent: (fallbackChanges[index] / fallbackPrices[index]) * 100,
-          volume: Math.floor(Math.random() * 10000000) + 1000000,
-          timestamp: Date.now()
-        }))];
+        throw error;
       })
-    ).subscribe(stocks => {
-      this.stocksSubject.next(stocks);
+    ).subscribe({
+      next: (stocks) => {
+        this.stocksSubject.next(stocks);
+        this.errorSubject.next(null);
+      },
+      error: (error) => {
+        console.error('Failed to load stock data:', error);
+        this.errorSubject.next('Unable to load stock data. Please check your API configuration.');
+        this.stocksSubject.next([]);
+      }
     });
   }
 

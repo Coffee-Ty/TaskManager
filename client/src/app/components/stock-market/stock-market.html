@@ -31,7 +31,12 @@
     </div>
   </div>
   
-  <div class="loading-content" *ngIf="stocks.length === 0">
+  <div class="error-content" *ngIf="stocks.length === 0 && errorMessage">
+    <p class="error-message">{{ errorMessage }}</p>
+    <button class="retry-btn" (click)="refreshStocks()">Retry</button>
+  </div>
+  
+  <div class="loading-content" *ngIf="stocks.length === 0 && !errorMessage">
     <div class="loading-spinner"></div>
     <p>Loading stock data...</p>
   </div>
