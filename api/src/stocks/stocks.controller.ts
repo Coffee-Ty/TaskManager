@@ -60,24 +60,4 @@ export class StocksController {
     }
   }
 
-  @Post('refresh')
-  async refreshStocks(): Promise<ApiResponseDto<StockDataDto[]>> {
-    try {
-      const stocks = await this.stocksService.refreshStocks();
-      return {
-        success: true,
-        message: 'Stock data refreshed successfully',
-        data: stocks,
-        timestamp: Date.now(),
-      };
-    } catch (error) {
-      throw new HttpException(
-        {
-          success: false,
-          error: 'Failed to refresh stock data',
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-  }
 }

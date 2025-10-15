@@ -27,11 +27,6 @@ export class WeatherService {
     return this.weatherData;
   }
 
-  async refreshWeather(): Promise<WeatherData | null> {
-    await this.updateWeatherData();
-    return this.weatherData;
-  }
-
   private async updateWeatherData(): Promise<void> {
     try {
       this.weatherData = await this.fetchWeatherData();

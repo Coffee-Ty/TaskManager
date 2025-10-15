@@ -32,11 +32,6 @@ export class StocksService {
     return stocks.find(stock => stock.symbol === symbol) || null;
   }
 
-  async refreshStocks(): Promise<StockData[]> {
-    await this.updateStockData();
-    return this.stockData;
-  }
-
   private async updateStockData(): Promise<void> {
     try {
       const symbols = this.configService.get<string[]>('stockSymbols');
