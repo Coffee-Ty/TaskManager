@@ -17,7 +17,7 @@ export class StocksService {
   ) {}
 
   async getStocks(): Promise<StockData[]> {
-    const cacheDuration = this.configService.get<number>('cache.stockCacheDuration');
+    const cacheDuration = this.configService.get<number>('cache.stonkCacheDuration');
     const now = Date.now();
 
     if (now - this.lastUpdate > cacheDuration) {
@@ -48,10 +48,13 @@ export class StocksService {
   }
 
   private async fetchStockData(symbol: string): Promise<StockData | null> {
-    try {
-      const apiKey = this.configService.get<string>('api.alphaVantage.apiKey');
-      const baseUrl = this.configService.get<string>('api.alphaVantage.baseUrl');
+    const apiKey = this.configService.get<string>('api.alphaVantage.apiKey');
 
+    console.log(apiKey);
+
+    const baseUrl = this.configService.get<string>('api.alphaVantage.baseUrl');
+
+  try {
       const response = await firstValueFrom(
         this.httpService.get<AlphaVantageResponse>(baseUrl, {
           params: {

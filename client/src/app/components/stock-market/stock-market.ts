@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StockService, StockData } from '../../services/stock.service';
+import { NumberCompressorPipe } from '../../pipes/number-compressor.pipe';
+import { SignedNumberPipe } from '../../pipes/signed-number.pipe';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stock-market',
-  imports: [CommonModule],
+  imports: [CommonModule, NumberCompressorPipe, SignedNumberPipe],
   templateUrl: './stock-market.html',
   styleUrls: ['./stock-market.css']
 })
@@ -13,6 +15,7 @@ export class StockMarketComponent implements OnInit, OnDestroy {
   stocks: StockData[] = [];
   errorMessage: string | null = null;
   private subscription: Subscription = new Subscription();
+
 
   constructor(private stockService: StockService) {}
 
@@ -31,31 +34,6 @@ export class StockMarketComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-  }
-
-  getChangeClass(change: number): string {
-    return change >= 0 ? 'positive' : 'negative';
-  }
-
-  formatPrice(price: number): string {
-    return price.toFixed(2);
-  }
-
-  formatChange(change: number): string {
-    return change >= 0 ? `+${change.toFixed(2)}` : change.toFixed(2);
-  }
-
-  formatChangePercent(changePercent: number): string {
-    return changePercent >= 0 ? `+${changePercent.toFixed(2)}%` : `${changePercent.toFixed(2)}%`;
-  }
-
-  formatVolume(volume: number): string {
-    if (volume >= 1000000) {
-      return `${(volume / 1000000).toFixed(1)}M`;
-    } else if (volume >= 1000) {
-      return `${(volume / 1000).toFixed(1)}K`;
-    }
-    return volume.toString();
   }
 
   refreshStocks(): void {

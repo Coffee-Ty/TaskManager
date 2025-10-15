@@ -15,20 +15,20 @@
           </div>
           
           <div class="stock-price">
-            <span class="price">${{ formatPrice(stock.price) }}</span>
+            <span class="price">{{ stock.price | currency:'USD' : 'symbol' : '1.2-2' }}</span>
             <div class="change-info">
-              <span class="change" [class]="getChangeClass(stock.change)">
-                {{ formatChange(stock.change) }}
+              <span class="change" [class.positive]="stock.change >= 0" [class.negative]="stock.change < 0">
+                {{ stock.change | number:'1.2-2' | signedNumber }}
               </span>
-              <span class="change-percent" [class]="getChangeClass(stock.changePercent)">
-                {{ formatChangePercent(stock.changePercent) }}
+              <span class="change-percent" [class.positive]="stock.changePercent >= 0" [class.negative]="stock.changePercent < 0">
+                {{ stock.changePercent | number:'1.2-2' | signedNumber }}%
               </span>
             </div>
           </div>
           
           <div class="stock-volume">
             <span class="volume-label">Volume</span>
-            <span class="volume-value">{{ formatVolume(stock.volume) }}</span>
+            <span class="volume-value">{{ stock.volume | numberCompressor }}</span>
           </div>
         </div>
       }

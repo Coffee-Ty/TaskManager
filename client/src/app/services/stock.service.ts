@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 export interface StockData {
   symbol: string;

@@ -2,14 +2,14 @@
   <div class="weather-sidebar">
     <div class="weather-header">
       <h3>Milwaukee Weather</h3>
-      <span class="last-updated">Updated: {{ formatTime(weather.timestamp) }}</span>
+      <span class="last-updated">Updated: {{ weather.timestamp | date:'mediumTime' }}</span>
     </div>
     
     <div class="weather-main">
       <div class="temperature">
         <span class="temp-value">{{ weather.temperature }}°</span>
         <div class="weather-icon">
-          <img [src]="getWeatherIconUrl(weather.icon)" [alt]="weather.description" />
+          <img [src]="`https://openweathermap.org/img/wn/${weather.icon}@2x.png`" [alt]="weather.description" />
         </div>
       </div>
       

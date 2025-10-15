@@ -1,18 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WeatherService, WeatherData } from '../../services/weather.service';
-import { Subscription } from 'rxjs';import { SignedNumberPipe } from '../../pipes/signed-number.pipe';
+import { WeatherService, WeatherData } from './weather.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-weather-sidebar',
   imports: [CommonModule],
-  templateUrl: './weather-sidebar.html',
-  styleUrls: ['./weather-sidebar.css']
+  templateUrl: '../components/weather-sidebar/weather-sidebar.html',
+  styleUrls: ['../components/weather-sidebar/weather-sidebar.css']
 })
 export class WeatherSidebarComponent implements OnInit, OnDestroy {
   weather: WeatherData | null = null;
   errorMessage: string | null = null;
   private subscription: Subscription = new Subscription();
+
 
   constructor(public weatherService: WeatherService) {}
 
