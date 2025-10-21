@@ -33,18 +33,14 @@ export class StocksService {
   }
 
   private async updateStockData(): Promise<void> {
-    try {
-      const symbols = this.configService.get<string[]>('stockSymbols');
-      const stockPromises = symbols.map(symbol => this.fetchStockData(symbol));
-      const stocks = await Promise.all(stockPromises);
-      
-      this.stockData = stocks.filter(stock => stock !== null);
-      this.lastUpdate = Date.now();
-      
-      this.logger.log('Stock data updated successfully');
-    } catch (error) {
-      this.logger.error('Error updating stock data:', error.message);
-    }
+    const symbols = this.configService.get<string[]>('stockSymbols');
+    const stockPromises = symbols.map(symbol => this.fetchStockData(symbol));
+    const stocks = await Promise.all(stockPromises);
+    
+    this.stockData = stocks.filter(stock => stock !== null);
+    this.lastUpdate = Date.now();
+    
+    this.logger.log('Stock data updated successfully');
   }
 
   private async fetchStockData(symbol: string): Promise<StockData | null> {

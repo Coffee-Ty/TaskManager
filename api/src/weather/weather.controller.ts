@@ -8,21 +8,11 @@ export class WeatherController {
 
   @Get()
   async getWeather(): Promise<ApiResponseDto<WeatherDataDto>> {
-    try {
-      const weather = await this.weatherService.getWeather();
-      return {
-        success: true,
-        data: weather,
-        timestamp: Date.now(),
-      };
-    } catch (error) {
-      throw new HttpException(
-        {
-          success: false,
-          error: 'Failed to fetch weather data',
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
+    const weather = await this.weatherService.getWeather();
+    return {
+      success: true,
+      data: weather,
+      timestamp: Date.now(),
+    };
   }
 }

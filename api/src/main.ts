@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { GlobalExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,6 +11,9 @@ async function bootstrap() {
     origin: 'http://localhost:4200', // Angular dev server
     credentials: true,
   });
+  
+  // Global exception filter
+  app.useGlobalFilters(new GlobalExceptionFilter());
   
   // Global validation pipe
   app.useGlobalPipes(new ValidationPipe({

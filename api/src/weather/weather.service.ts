@@ -28,14 +28,9 @@ export class WeatherService {
   }
 
   private async updateWeatherData(): Promise<void> {
-    try {
-      this.weatherData = await this.fetchWeatherData();
-      this.lastUpdate = Date.now();
-      this.logger.log('Weather data updated successfully');
-    } catch (error) {
-      this.logger.error('Error updating weather data:', error.message);
-      throw error;
-    }
+    this.weatherData = await this.fetchWeatherData();
+    this.lastUpdate = Date.now();
+    this.logger.log('Weather data updated successfully');
   }
 
   private async fetchWeatherData(): Promise<WeatherData> {

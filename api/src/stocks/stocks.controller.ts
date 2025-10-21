@@ -8,56 +8,33 @@ export class StocksController {
 
   @Get()
   async getAllStocks(): Promise<ApiResponseDto<StockDataDto[]>> {
-    try {
-      const stocks = await this.stocksService.getStocks();
-      return {
-        success: true,
-        data: stocks,
-        timestamp: Date.now(),
-      };
-    } catch (error) {
-      throw new HttpException(
-        {
-          success: false,
-          error: 'Failed to fetch stock data',
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
+    const stocks = await this.stocksService.getStocks();
+    return {
+      success: true,
+      data: stocks,
+      timestamp: Date.now(),
+    };
   }
 
   @Get(':symbol')
   async getStockBySymbol(@Param('symbol') symbol: string): Promise<ApiResponseDto<StockDataDto>> {
-    try {
-      const stock = await this.stocksService.getStockBySymbol(symbol.toUpperCase());
-      
-      if (!stock) {
-        throw new HttpException(
-          {
-            success: false,
-            error: `Stock symbol ${symbol.toUpperCase()} not found`,
-          },
-          HttpStatus.NOT_FOUND,
-        );
-      }
-
-      return {
-        success: true,
-        data: stock,
-        timestamp: Date.now(),
-      };
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
+    const stock = await this.stocksService.getStockBySymbol(symbol.toUpperCase());
+    
+    if (!stock) {
       throw new HttpException(
         {
           success: false,
-          error: 'Failed to fetch stock data',
+          error: `Stock symbol ${symbol.toUpperCase()} not found`,
         },
-        HttpStatus.INTERNAL_SERVER_ERROR,
+        HttpStatus.NOT_FOUND,
       );
     }
+
+    return {
+      success: true,
+      data: stock,
+      timestamp: Date.now(),
+    };
   }
 
 }

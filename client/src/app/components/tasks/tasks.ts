@@ -101,34 +101,28 @@ export class TasksComponent {
   }
 
   private loadTasks(): Task[] {
-    try {
-      const raw = localStorage.getItem(this.storageKey);
-      const list: StoredTask[] = raw ? JSON.parse(raw) : [];
-      return list.map(t => ({
-        id: t.id ?? this.generateId(),
-        title: t.title ?? '',
-        completed: !!t.completed,
-        isEditing: false,
-        editTitle: t.title ?? '',
-        createdAt: t.createdAt ?? Date.now(),
-      }));
-    } catch {
-      return [];
-    }
+    const raw = localStorage.getItem(this.storageKey);
+    if (!raw) return [];
+    
+    const list: StoredTask[] = JSON.parse(raw);
+    return list.map(t => ({
+      id: t.id ?? this.generateId(),
+      title: t.title ?? '',
+      completed: !!t.completed,
+      isEditing: false,
+      editTitle: t.title ?? '',
+      createdAt: t.createdAt ?? Date.now(),
+    }));
   }
 
   private saveTasks(): void {
-    try {
-      const toStore: StoredTask[] = this.tasks.map(t => ({
-        id: t.id,
-        title: t.title,
-        completed: t.completed,
-        createdAt: t.createdAt,
-      }));
-      localStorage.setItem(this.storageKey, JSON.stringify(toStore));
-    } catch {
-      // ignore
-    }
+    const toStore: StoredTask[] = this.tasks.map(t => ({
+      id: t.id,
+      title: t.title,
+      completed: t.completed,
+      createdAt: t.createdAt,
+    }));
+    localStorage.setItem(this.storageKey, JSON.stringify(toStore));
   }
 
   private generateId(): string {
