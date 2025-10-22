@@ -17,7 +17,7 @@ export class StocksService {
   ) {}
 
   async getStocks(): Promise<StockData[]> {
-    const cacheDuration = this.configService.get<number>('cache.stonkCacheDuration');
+    const cacheDuration = this.configService.get<number>('cache.stockCacheDuration');
     const now = Date.now();
 
     if (now - this.lastUpdate > cacheDuration) {
@@ -32,6 +32,7 @@ export class StocksService {
     return stocks.find(stock => stock.symbol === symbol) || null;
   }
 
+
   private async updateStockData(): Promise<void> {
     const symbols = this.configService.get<string[]>('stockSymbols');
     const stockPromises = symbols.map(symbol => this.fetchStockData(symbol));
@@ -45,12 +46,9 @@ export class StocksService {
 
   private async fetchStockData(symbol: string): Promise<StockData | null> {
     const apiKey = this.configService.get<string>('api.alphaVantage.apiKey');
-
-    console.log(apiKey);
-
     const baseUrl = this.configService.get<string>('api.alphaVantage.baseUrl');
 
-  try {
+    try {
       const response = await firstValueFrom(
         this.httpService.get<AlphaVantageResponse>(baseUrl, {
           params: {
@@ -62,6 +60,7 @@ export class StocksService {
       );
 
       const quote = response.data['Global Quote'];
+      
       if (quote && quote['01. symbol']) {
         return {
           symbol: quote['01. symbol'],

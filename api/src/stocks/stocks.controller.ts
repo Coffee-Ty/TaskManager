@@ -16,6 +16,7 @@ export class StocksController {
     };
   }
 
+
   @Get(':symbol')
   async getStockBySymbol(@Param('symbol') symbol: string): Promise<ApiResponseDto<StockDataDto>> {
     const stock = await this.stocksService.getStockBySymbol(symbol.toUpperCase());
